@@ -1,7 +1,7 @@
 orbs:
   # Using 1.0 of the Orbs means it will use the latest 1.0.x version from https://github.com/wordpress-mobile/circleci-orbs
   android: wordpress-mobile/android@1.0
-  git: wordpress-mobile/git@1.0
+  git: wordpress-mobile/git@dev:add-git-submodule-handling
   bundle-install: toshimaru/bundle-install@0.3.1
   slack: circleci/slack@3.4.2
 
@@ -19,7 +19,8 @@ jobs:
       name: android/default
       api-version: "28"
     steps:
-      - git/shallow-checkout
+      - git/shallow-checkout:
+          init-submodules: true
       - android/restore-gradle-cache
       - copy-gradle-properties
       - run:
@@ -35,7 +36,8 @@ jobs:
       name: android/default
       api-version: "28"
     steps:
-      - git/shallow-checkout
+      - git/shallow-checkout:
+          init-submodules: true
       - android/restore-gradle-cache
       - copy-gradle-properties
       - run:
@@ -63,7 +65,8 @@ jobs:
       name: android/default
       api-version: "28"
     steps:
-      - git/shallow-checkout
+      - git/shallow-checkout:
+          init-submodules: true
       - bundle-install/bundle-install:
           cache_key_prefix: installable-build
       - run:
@@ -103,7 +106,8 @@ jobs:
       name: android/default
       api-version: "28"
     steps:
-      - git/shallow-checkout
+      - git/shallow-checkout:
+          init-submodules: true
       - android/restore-gradle-cache
       - copy-gradle-properties
       - run:
@@ -137,7 +141,8 @@ jobs:
       name: android/default
       api-version: "28"
     steps:
-      - git/shallow-checkout
+      - git/shallow-checkout:
+          init-submodules: true
       - android/restore-gradle-cache
       - copy-gradle-properties
       - run:
@@ -160,7 +165,8 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.4
     steps:
-      - git/shallow-checkout
+      - git/shallow-checkout:
+          init-submodules: true
       - run:
           name: Install bundler
           command: gem install bundler --version 2.0.2 
